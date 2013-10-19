@@ -1,5 +1,5 @@
 require "lilyplaying/version"
 
-module Lilyplaying
+module LilyPlaying
   # Your code goes here...
 end
