@@ -11,3 +11,26 @@ program :version, LilyPlaying::VERSION
 program :description, LilyPlaying::DESCRIPTION
 
 default_command :help
+
+command :auth do |c|
+  c.syntax = 'lilyplaying auth'
+  c.description = 'Returns the url to use to authorize lilyplaying to your last.fm account'
+
+  c.action do |args, options|
+    key = LilyPlaying.config['api']['key']
+    token = LilyPlaying.client.auth.get_token
+    puts "Go to: http://www.last.fm/api/auth/?api_key=#{key}&token=#{token}"
+  end
+end
+
+command :current do |c|
+  c.syntax = 'lilyplaying current'
+  c.description = 'Returns the currently playing song'
+  c.action do |args, options|
+    user = LilyPlaying.user
+    current = user.current
+
+    puts "#{current.name} - #{current.artist}"
+  end
+end
+
