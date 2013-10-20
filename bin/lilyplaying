@@ -49,7 +49,7 @@ command :run do |c|
       current = user.current
       string = current.to_s
       puts "Updating: #{string}"
-      File.write(File.expand_path(file), string)
+      File.write(File.expand_path(file), "#{string}     ***     ")
       sleep 15
     end
 
