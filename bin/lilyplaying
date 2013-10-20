@@ -34,3 +34,25 @@ command :current do |c|
   end
 end
 
+command :run do |c|
+  c.syntax = 'lilyplaying run [file]'
+  c.description = 'Run in the background and update song every 10 seconds, writing output to [file] which defaults to ~/.currently_playing'
+
+  c.action do |args, options|
+    file = args[0] || "~/.currently_playing"
+
+    exit_requested = false
+    Kernel.trap( "INT" ) { exit_requested = true }
+
+    while !exit_requested
+      user = LilyPlaying.user
+      current = user.current
+      string = current.to_s
+      puts "Updating: #{string}"
+      File.write(File.expand_path(file), string)
+      sleep 15
+    end
+
+    puts "Exiting"
+  end
+end

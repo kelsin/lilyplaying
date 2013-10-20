@@ -3,18 +3,23 @@ module LilyPlaying
     attr_reader :data
 
     def initialize(data)
-      current = data[0]
-      if current["nowplaying"]
-        @data = current
-      end
+      @data = data[0]
+    end
+
+    def playing?
+      @data["nowplaying"]
     end
 
     def album
-      @data.nil? ? "No Current Album" : (@data['album']['content'] || artist)
+      (@data['album']['content'] || artist) if @data
     end
 
     def method_missing(meth, *args, &block)
-      @data.nil? ? "No Current #{meth.to_s.capitalize}" : (@data[meth.to_s]['content'] || @data[meth.to_s])
+      (@data[meth.to_s]['content'] || @data[meth.to_s]) if @data
+    end
+
+    def to_s
+      "#{name} - #{artist}"
     end
   end
 end
