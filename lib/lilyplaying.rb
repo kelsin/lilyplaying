@@ -1,5 +1,6 @@
 require 'lilyplaying/version'
-require 'lastfm'
+require 'rubygems'
+require 'rdio'
 require 'safe_yaml'
 
 require 'lilyplaying/user'
@@ -11,14 +12,10 @@ module LilyPlaying
   end
   
   def self.client
-    @@client ||= Lastfm.new(config['api']['key'], config['api']['secret'])
-  end
-  
-  def self.session
-    @@session = client.auth.get_session(:token => config['api']['token'])['key']
+    @@client ||= Rdio.new([config['consumer']['key'], config['consumer']['secret']], [config['access']['token'], config['access']['secret']])
   end
   
   def self.user
-    LilyPlaying::User.new(config['user'])
+    LilyPlaying::User.new
   end
 end

@@ -2,14 +2,14 @@ require 'lilyplaying/current'
 
 module LilyPlaying
   class User
-    attr_reader :name
+    attr_reader :data
 
-    def initialize(name)
-      @name = name
+    def initialize()
+      @data = LilyPlaying.client.call("currentUser", :extras => "lastSongPlayed")['result']
     end
 
     def current
-      LilyPlaying::Current.new(LilyPlaying.client.user.get_recent_tracks(:user => name))
+      LilyPlaying::Current.new(@data["lastSongPlayed"])
     end
   end
 end

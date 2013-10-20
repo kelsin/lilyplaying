@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency('commander', "~> 4.1.3")
-  spec.add_runtime_dependency('lastfm', "~> 1.21.0")
   spec.add_runtime_dependency('safe_yaml', "~> 0.7.0")
 
   spec.add_development_dependency "bundler", "~> 1.3"
